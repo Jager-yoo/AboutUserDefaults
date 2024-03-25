@@ -14,9 +14,11 @@ struct AboutUserDefaultsApp: App {
 
   var body: some Scene {
     WindowGroup {
-      ContentView()
-        .environmentObject(userDefaultsClient)
-        .preferredColorScheme(userDefaultsClient.isDarkMode ? .dark : .light)
+      NavigationStack {
+        ContentView()
+      }
+      .environmentObject(userDefaultsClient)
+      .preferredColorScheme(userDefaultsClient.isDarkMode ? .dark : .light)
     }
   }
 }

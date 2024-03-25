@@ -25,9 +25,16 @@ final class UserDefaultsClient: ObservableObject {
     }
   }
 
+  @Published var isOnboardingDone: Bool = UserDefaults.standard.bool(forKey: Keys.isOnboardingDone.id) {
+    didSet {
+      UserDefaults.standard.set(isOnboardingDone, forKey: Keys.isOnboardingDone.id)
+    }
+  }
+
   enum Keys: CaseIterable {
     case number
     case isDarkMode
+    case isOnboardingDone
 
     var id: String {
       "\(self)"

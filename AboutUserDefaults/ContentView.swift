@@ -11,6 +11,8 @@ struct ContentView: View {
   
   @EnvironmentObject private var userDefaultsClient: UserDefaultsClient
 
+  @State private var shouldPresentOnboarding: Bool = false
+
   var body: some View {
     VStack {
       GroupBox {
@@ -28,6 +30,14 @@ struct ContentView: View {
           .labelsHidden()
           .tint(.cyan)
       }
+    }
+    .onAppear {
+      if !userDefaultsClient.isOnboardingDone {
+        shouldPresentOnboarding = true
+      }
+    }
+    .sheet(isPresented: $shouldPresentOnboarding, onDismiss: { userDefaultsClient.isOnboardingDone = true }) {
+      OnboardingView()
     }
   }
 }
