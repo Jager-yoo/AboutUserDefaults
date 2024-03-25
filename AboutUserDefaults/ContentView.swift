@@ -8,21 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-
-  @State private var num: Int = UserDefaults.standard.integer(forKey: "nothing")
-
+  
   @EnvironmentObject private var userDefaultsClient: UserDefaultsClient
 
   var body: some View {
     VStack {
       GroupBox {
-        Text("\(num)")
+        Text("\(userDefaultsClient.number)")
           .font(.largeTitle)
       }
 
       Button("Up!") {
-        num += 1
-        UserDefaults.standard.set(num, forKey: "nothing")
+        userDefaultsClient.number += 1
       }
       .buttonStyle(.bordered)
 
