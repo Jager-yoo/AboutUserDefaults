@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct AboutUserDefaultsApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+
+  @StateObject private var userDefaultsClient = UserDefaultsClient.shared
+
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
+        .environmentObject(userDefaultsClient)
+        .preferredColorScheme(userDefaultsClient.isDarkMode ? .dark : .light)
     }
+  }
 }

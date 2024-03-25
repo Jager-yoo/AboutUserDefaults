@@ -11,7 +11,7 @@ struct ContentView: View {
 
   @State private var num: Int = UserDefaults.standard.integer(forKey: "nothing")
 
-  @StateObject private var userDefaultsClient = UserDefaultsClient.shared
+  @EnvironmentObject private var userDefaultsClient: UserDefaultsClient
 
   var body: some View {
     VStack {
@@ -26,16 +26,11 @@ struct ContentView: View {
       }
       .buttonStyle(.bordered)
 
-      GroupBox("유저디폴트 전용 뷰모델") {
-        Toggle("isToggleOn", isOn: $userDefaultsClient.isToggleOn)
-
+      GroupBox("다크 모드 설정") {
         Toggle("isDarkMode", isOn: $userDefaultsClient.isDarkMode)
+          .labelsHidden()
           .tint(.cyan)
-
-        Toggle("isSomething", isOn: $userDefaultsClient.isSomething)
-          .tint(.mint)
       }
-      .labelsHidden()
     }
   }
 }
