@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "hos_ad.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

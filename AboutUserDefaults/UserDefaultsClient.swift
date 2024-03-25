@@ -31,10 +31,17 @@ final class UserDefaultsClient: ObservableObject {
     }
   }
 
+  @Published var adHiddenDate: TimeInterval = UserDefaults.standard.double(forKey: Keys.adHiddenDate.id) {
+    didSet {
+      UserDefaults.standard.set(adHiddenDate, forKey: Keys.adHiddenDate.id)
+    }
+  }
+
   enum Keys: CaseIterable {
     case number
     case isDarkMode
     case isOnboardingDone
+    case adHiddenDate
 
     var id: String {
       "\(self)"
