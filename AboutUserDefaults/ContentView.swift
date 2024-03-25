@@ -27,13 +27,15 @@ struct ContentView: View {
       .buttonStyle(.bordered)
 
       GroupBox {
-        Toggle("abc", isOn: $isToggleOn) // 저장이 될까? -> 안 됨! 바인딩이라 메서드도 못 씀. 이럴 땐 어떻게 해? -> onChange 사용
-          .labelsHidden()
-          .onChange(of: isToggleOn) { oldValue, newValue in
-            if oldValue != newValue {
-              UserDefaults.standard.set(newValue, forKey: "abc")
-            }
-          }
+        // 커스텀 Binding 구현한다.
+        Toggle("abc", isOn: Binding(
+          get: { isToggleOn },
+          set: { newValue in
+            isToggleOn = newValue
+            UserDefaults.standard.set(newValue, forKey: "abc")
+          })
+        )
+        .labelsHidden()
       }
     }
   }
