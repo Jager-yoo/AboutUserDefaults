@@ -13,8 +13,10 @@ struct ContentView: View {
 
   @State private var isToggleOn: Bool = UserDefaults.standard.bool(forKey: "abc")
 
-  // !!!: iOS 14 에 등장한 UserDefaults 를 감싼 프로퍼티 래퍼! 마치 @State 처럼 쓸 수 있다. 초기값이 필요하다.
-  @AppStorage("abc") private var isToggleOnMirror: Bool = false // 'true'로 세팅된 값을 'false'로 시작하더라도 true 가 됨.
+  // !!!: 편리하지만, View 안에서 다루는 유저디폴트가 많아지면, 프로퍼티가 비례해서 많아진다.
+  @AppStorage("abc") private var isToggleOnMirror: Bool = false
+  @AppStorage("abc") private var isToggleOnMirror2: Bool = true
+  @AppStorage("abc") private var isToggleOnMirror3: Bool = false
 
   var body: some View {
     VStack {
@@ -41,11 +43,17 @@ struct ContentView: View {
         .labelsHidden()
       }
 
-      GroupBox("@AppStorage") {
-        Toggle("", isOn: $isToggleOnMirror) // 근데 여길 바꾸면 @State 로 홀딩한 유저디폴트는 반응하지 않는다. 종료했다가 키면 바뀌어있다. 왜? view redrawing 안 돼서 그래.
-          .labelsHidden()
+      GroupBox("@AppStorage") { // 키값이 같다면, 모두 같은 값을 바라본다.
+        Toggle("", isOn: $isToggleOnMirror)
           .tint(.orange)
+
+        Toggle("", isOn: $isToggleOnMirror2)
+          .tint(.pink)
+
+        Toggle("", isOn: $isToggleOnMirror3)
+          .tint(.red)
       }
+      .labelsHidden()
     }
   }
 }
